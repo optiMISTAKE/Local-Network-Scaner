@@ -10,7 +10,17 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Model\" />
+    <None Remove="Resources\bluetooth-16-bit-uuids-2022-05-19.csv" />
+    <None Remove="Resources\oui.csv" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\bluetooth-16-bit-uuids-2022-05-19.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\oui.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>
