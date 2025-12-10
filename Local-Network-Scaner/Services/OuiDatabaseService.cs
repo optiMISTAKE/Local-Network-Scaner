@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
-using Local_Network_Scaner.Model;
+using Local_Network_Scanner.Model;
 using Microsoft.VisualBasic.FileIO;
 using System.Diagnostics;
 
-namespace Local_Network_Scaner.Services
+namespace Local_Network_Scanner.Services
 {
     public class OuiDatabaseService
     {

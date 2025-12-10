@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Local_Network_Scaner.ViewModel.Base
+namespace Local_Network_Scanner.ViewModel.Base
 {
     public class ViewModelBase: INotifyPropertyChanged
     {

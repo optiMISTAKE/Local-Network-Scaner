@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Local_Network_Scaner.Model
+namespace Local_Network_Scanner.Model
 {
     public class OuiRecord
     {

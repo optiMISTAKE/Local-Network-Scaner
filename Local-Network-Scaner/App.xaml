@@ -1,7 +1,7 @@
-﻿<Application x:Class="Local_Network_Scaner.App"
+﻿<Application x:Class="Local_Network_Scanner.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:Local_Network_Scaner">
+             xmlns:local="clr-namespace:Local_Network_Scanner">
 
     <Application.Resources>
 

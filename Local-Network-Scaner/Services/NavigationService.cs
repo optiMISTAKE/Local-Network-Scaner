@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Local_Network_Scaner.ViewModel.Base;
+using Local_Network_Scanner.ViewModel.Base;
 
-namespace Local_Network_Scaner.Services
+namespace Local_Network_Scanner.Services
 {
     public class NavigationService
     {

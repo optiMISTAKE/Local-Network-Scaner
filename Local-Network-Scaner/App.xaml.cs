@@ -1,10 +1,10 @@
 ﻿using System.Configuration;
 using System.Data;
 using System.Windows;
-using Local_Network_Scaner.Services;
-using Local_Network_Scaner.ViewModel;
+using Local_Network_Scanner.Services;
+using Local_Network_Scanner.ViewModel;
 
-namespace Local_Network_Scaner
+namespace Local_Network_Scanner
 {
     /// <summary>
     /// Interaction logic for App.xaml

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace Local_Network_Scaner.ViewModel.Base
+namespace Local_Network_Scanner.ViewModel.Base
 {
     public class RelayCommand : ICommand
     {

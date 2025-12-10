@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Local_Network_Scaner.Services;
+using Local_Network_Scanner.Services;
 
-namespace Local_Network_Scaner.ViewModel.Base
+namespace Local_Network_Scanner.ViewModel.Base
 {
     public class ViewModelFactory
     {

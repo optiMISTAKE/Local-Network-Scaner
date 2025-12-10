@@ -9,7 +9,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Local_Network_Scaner
+namespace Local_Network_Scanner
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

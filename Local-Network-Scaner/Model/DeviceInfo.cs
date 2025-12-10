@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Local_Network_Scaner.Model
+namespace Local_Network_Scanner.Model
 {
     public class DeviceInfo
     {
@@ -31,6 +31,14 @@ namespace Local_Network_Scaner.Model
             get
             {
                 return IsActive ? "Active" : "Inactive";
+            }
+        }
+
+        public string VendorDisplay
+        {
+            get
+            {
+                return string.IsNullOrEmpty(Vendor) ? "OUI record not found in the database. The given MAC address is most probably random or private" : Vendor;
             }
         }
     }

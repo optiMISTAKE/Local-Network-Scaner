@@ -4,15 +4,15 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Local_Network_Scaner.Services;
-using Local_Network_Scaner.ViewModel.Base;
-using Local_Network_Scaner.Model;
+using Local_Network_Scanner.Services;
+using Local_Network_Scanner.ViewModel.Base;
+using Local_Network_Scanner.Model;
 using System.Windows.Input;
 using System.Net;
 using System.Xml.Linq;
 using System.Windows;
 
-namespace Local_Network_Scaner.ViewModel
+namespace Local_Network_Scanner.ViewModel
 {
     public class MainMenuViewModel : ViewModelBase
     {
@@ -22,7 +22,9 @@ namespace Local_Network_Scaner.ViewModel
         private readonly ViewModelFactory _viewModelFactory;
         private readonly ScanService _scanService = new ScanService();
         private readonly NetworkInterfaceService _networkInterfaceService = new NetworkInterfaceService();
-        private readonly OuiDatabaseService _ouiDb = new OuiDatabaseService();
+
+        // !!! - ACTIVATE OR DELETE LATER
+        //private readonly OuiDatabaseService _ouiDb = new OuiDatabaseService();
 
         // PUBLIC PROPERTIES, AVAILABLE FOR DATA BINDING
 
@@ -44,13 +46,18 @@ namespace Local_Network_Scaner.ViewModel
             string subnetBase = $"{parts[0]}.{parts[1]}.{parts[2]}";
 
             Devices.Clear();
-            var results = await _scanService.ScanSubnetAsync(subnetBase);
-            foreach (var d in results)
-                Devices.Add(d);
+
+            var progress = new Progress<DeviceInfo>(device =>
+            {
+                Devices.Add(device);
+            });
+
+            await _scanService.ScanSubnetAsync(subnetBase, progress);
         });
         public ICommand LoadNetworkInterfacesCommand => new RelayCommand(LoadNetworkInterfaces);
 
-        public ICommand TestOUI => new RelayCommand(TestOUIDatabase);
+        // !!! - ACTIVATE OR DELETE LATER
+        // public ICommand TestOUI => new RelayCommand(TestOUIDatabase);
 
         // CONSTRUCTORS
 
@@ -58,7 +65,6 @@ namespace Local_Network_Scaner.ViewModel
         {
             _navigationService = navigationService;
             _viewModelFactory = viewModelFactory;
-            _ouiDb.LoadDatabaseCSV("Resources/oui.csv");
 
             LoadNetworkInterfaces();
         }
@@ -85,19 +91,21 @@ namespace Local_Network_Scaner.ViewModel
         }
 
         // DELETE LATER
-        private void TestOUIDatabase()
-        {
-            string testMac = "F0-20-FF-22-D9-A9";
-            OuiRecord record = _ouiDb.GetVendor(testMac);
-            if (record != null)
-            {
-                MessageBox.Show($"Producentem urzadzenia o MAC {testMac} jest {record.Vendor}\nAdres: {record.Address}");
-            }
-            else
-            {
-                MessageBox.Show("OUI record not found in the database. The given MAC address is most probably random or private");
-            }
-        }
+        // !!! - ACTIVATE OR DELETE LATER
+
+        //private void TestOUIDatabase()
+        //{
+        //    string testMac = "f0-20-FF-22-D9-A9";
+        //    OuiRecord record = _ouiDb.GetVendor(testMac);
+        //    if (record != null)
+        //    {
+        //        MessageBox.Show($"Producentem urzadzenia o MAC {testMac} jest {record.Vendor}\nAdres: {record.Address}");
+        //    }
+        //    else
+        //    {
+        //        MessageBox.Show("OUI record not found in the database. The given MAC address is most probably random or private");
+        //    }
+        //}
     }
 
 }

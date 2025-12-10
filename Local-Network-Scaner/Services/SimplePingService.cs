@@ -6,7 +6,7 @@ using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Local_Network_Scaner.Services
+namespace Local_Network_Scanner.Services
 {
     public class SimplePingService
     {

@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Local_Network_Scaner.View
+namespace Local_Network_Scanner.View
 {
     /// <summary>
     /// Interaction logic for MainMenu.xaml

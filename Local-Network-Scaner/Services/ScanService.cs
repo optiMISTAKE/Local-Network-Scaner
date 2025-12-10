@@ -5,25 +5,63 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Local_Network_Scaner.Model;
-using static Local_Network_Scaner.Services.TcpConnectActiveService;
+using Local_Network_Scanner.Model;
+using static Local_Network_Scanner.Services.TcpConnectActiveService;
+using System.IO;
 
-namespace Local_Network_Scaner.Services
+namespace Local_Network_Scanner.Services
 {
     public class ScanService
     {
-        public async Task<List<DeviceInfo>> ScanSubnetAsync(string baseIp)
+        private readonly OuiDatabaseService _ouiDb = new OuiDatabaseService();
+        private readonly SimplePingService _pingService = new SimplePingService();
+        private readonly ArpService _arpService = new ArpService();
+        private readonly TcpConnectActiveService _tcpConnectService = new TcpConnectActiveService();
+
+        // Parameterless constructor to load OUI database
+        public ScanService()
         {
-            var tasks = new List<Task<DeviceInfo>>();
+            // Load the OUI database on initialization
+            string path = Path.Combine(
+            AppDomain.CurrentDomain.BaseDirectory,
+            "Resources",
+            "oui.csv"
+            );
+
+            _ouiDb.LoadDatabaseCSV(path);
+        }
+        public async Task ScanSubnetAsync(string baseIp, IProgress<DeviceInfo> progress)
+        {
+            int maxConcurrency = 50;
+            using var sem = new SemaphoreSlim(maxConcurrency);
+
+            var tasks = new List<Task>();
 
             for (int i = 1; i <= 254; i++)
             {
                 string ipAddress = $"{baseIp}.{i}";
                 Debug.WriteLine($"Scanning {ipAddress}");
-                tasks.Add(ScanSingleHost(ipAddress));
+                
+                await sem.WaitAsync();
+
+                tasks.Add(Task.Run(async () =>
+                {
+                    try
+                    {
+                        var deviceInfo = await ScanSingleHost(ipAddress);
+                        if (deviceInfo != null && deviceInfo.IsActive)
+                        {
+                            progress.Report(deviceInfo);
+                        }
+                    }
+                    finally
+                    {
+                        sem.Release();
+                    }
+                }));
             }
 
-            return (await Task.WhenAll(tasks)).Where(d => d != null && d.IsActive).ToList();
+            await Task.WhenAll(tasks);
 
         }
 
@@ -32,16 +70,30 @@ namespace Local_Network_Scaner.Services
             var device = new DeviceInfo { IPAddress = ipAddress };
 
             // 1. Ping the host
-            device.IsActive = await new SimplePingService().PingAsync(ipAddress, 300);
+            device.IsActive = await _pingService.PingAsync(ipAddress, 300);
 
             if (!device.IsActive)
             {
-                device.IsActive = await new SimplePingService().PingAsync(ipAddress, 1000);
+                device.IsActive = await _pingService.PingAsync(ipAddress, 1000);
             }
 
-            // ...
+            // 2. Get MAC Address and Vendor
+
+            string? hostMacAddress = _arpService.GetMacAddress(ipAddress);
+            device.MACAddress = hostMacAddress;
+
+            if (!string.IsNullOrEmpty(device.MACAddress))
+            {
+                OuiRecord ouiRecord = _ouiDb.GetVendor(device.MACAddress);
+                Debug.WriteLine($"OUI Lookup for {device.MACAddress}: {ouiRecord?.Vendor}");
+                if (ouiRecord != null)
+                {
+                    device.Vendor = ouiRecord.Vendor;
+                }
+            }
 
             // 3. TCP Connect Scan
+
             //foreach (var port in new TcpConnectActiveService().CommonPorts)
             //{
             //    var result = await new TcpConnectActiveService().TryTCPConnectAsync(ipAddress, port, 500);
@@ -55,18 +107,22 @@ namespace Local_Network_Scaner.Services
             int timeout = 500;
 
             using var sem = new SemaphoreSlim(maxConcurrency);
-            var tasks = new List<Task<ScanResult>>();
+            var tasks = new List<Task>();
 
-            foreach (var port in new TcpConnectActiveService().CommonPorts)
+            foreach (var port in _tcpConnectService.CommonPorts)
             {
                 await sem.WaitAsync();
                 tasks.Add(Task.Run(async () =>
                 {
                     try
                     {
-                        var result = await new TcpConnectActiveService().ProbeTcpPort(ipAddress, port, timeout);
+                        var result = await _tcpConnectService.ProbeTcpPort(ipAddress, port, timeout);
                         
-                        if (result.IsOpen) device.OpenPorts.Add(port);
+                        if (result.IsOpen)
+                        {
+                            lock (device.OpenPorts)
+                                device.OpenPorts.Add(port);
+                        }
 
                         return result;
                     }
@@ -77,9 +133,13 @@ namespace Local_Network_Scaner.Services
                 }));
             }
 
-            var results = await Task.WhenAll(tasks);
+            await Task.WhenAll(tasks);
 
             return device;
+
+            // 4. Reverse DNS Lookup
+            // ...
+
         }
     }
 }
