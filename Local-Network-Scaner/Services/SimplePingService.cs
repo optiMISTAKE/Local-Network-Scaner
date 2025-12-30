@@ -10,8 +10,9 @@ namespace Local_Network_Scanner.Services
 {
     public class SimplePingService
     {
-        public async Task<bool> PingAsync(string ipAddress, int timeout)
+        public async Task<bool> PingAsync(string ipAddress, int timeout, CancellationToken cancellationToken)
         {
+            cancellationToken.ThrowIfCancellationRequested();
             using var ping = new Ping();
 
             try

@@ -20,5 +20,15 @@ namespace Local_Network_Scanner.ViewModel.Base
         {
             return new MainMenuViewModel(_navigationService, this);
         }
+
+        public MainScanViewModel CreateMainScanVM()
+        {
+            return new MainScanViewModel(_navigationService, this);
+        }
+
+        public BluetoothScanViewModel CreateBluetoothScanVM()
+        {
+            return new BluetoothScanViewModel(_navigationService, this);
+        }
     }
 }

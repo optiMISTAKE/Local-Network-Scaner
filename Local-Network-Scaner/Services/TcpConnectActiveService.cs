@@ -33,8 +33,9 @@ namespace Local_Network_Scanner.Services
 
         public record ScanResult(int Port, bool IsOpen, string Message);
 
-        public async Task<ScanResult> ProbeTcpPort(string ipAddress, int port, int timeout)
+        public async Task<ScanResult> ProbeTcpPort(string ipAddress, int port, int timeout, CancellationToken cancellationToken)
         {
+            cancellationToken.ThrowIfCancellationRequested();
             using var tcpClient = new TcpClient();
             var connectTask = tcpClient.ConnectAsync(ipAddress, port);
             var delayTask = Task.Delay(timeout);

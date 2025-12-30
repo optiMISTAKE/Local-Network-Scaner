@@ -11,7 +11,7 @@ namespace Local_Network_Scanner.Model
         public string IPAddress { get; set; }
         public bool IsActive { get; set; }
         public List<int> OpenPorts { get; set; } = new List<int>();
-        public string Banner { get; set; }
+        public Dictionary<int, string> PortBanners { get; } = new Dictionary<int, string>();
         public string MACAddress { get; set; }
         public string Vendor { get; set; }
         public string HostName { get; set; }
@@ -41,5 +41,21 @@ namespace Local_Network_Scanner.Model
                 return string.IsNullOrEmpty(Vendor) ? "OUI record not found in the database. The given MAC address is most probably random or private" : Vendor;
             }
         }
+
+        public string Banner
+        {
+            get
+            {
+                if (PortBanners.Count == 0)
+                    return string.Empty;
+
+                return string.Join(" | ",
+                    PortBanners
+                        .OrderBy(p => p.Key)
+                        .Select(p => $"{p.Key}: {p.Value}")
+                );
+            }
+        }
+
     }
 }

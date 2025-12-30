@@ -7,4 +7,12 @@
         <views:MainMenu/>
     </DataTemplate>
 
+    <DataTemplate DataType="{x:Type vm:BluetoothScanViewModel}">
+        <views:BluetoothScan/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:MainScanViewModel}">
+        <views:MainScan/>
+    </DataTemplate>
+
 </ResourceDictionary>

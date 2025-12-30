@@ -5,104 +5,24 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Local_Network_Scanner.View"
              mc:Ignorable="d" 
-             d:DesignHeight="500" d:DesignWidth="900">
-    <Grid Background="Aqua">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Background="AliceBlue">
 
         <StackPanel Orientation="Vertical">
-            <Label Content="Skaner Sieci Lokalnej" HorizontalAlignment="Center" VerticalAlignment="Top" FontWeight="Black" FontSize="36"/>
+            
+            <Label Content="Skaner Sieci Lokalnej" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="36"/>
 
-            <Label Content="Wybierz interfejs sieciowy:"
-                   HorizontalAlignment="Left"
-                   Margin="0,10,0,0"
-                   FontSize="20"
-                   FontWeight="Bold"/>
-            <ComboBox ItemsSource="{Binding AvailableNetworkInterfaces}"
-                      DisplayMemberPath="DisplayNetworkName"
-                      SelectedItem="{Binding CurrentlySetNetInterface}"
-                      Width="300"
-                      HorizontalAlignment="Left"
-                      Margin="5,10,0,10"/>
+            <Button Content="Przejdź do głównego skanera"
+                Width="200" Height="50"
+                HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10"
+                Command="{Binding NavigateToMainScanCommand}"/>
 
-            <!-- Scan button -->
-            <Button Content="Skanuj Sieć"
-                    Width="120"
-                    Height="35"
-                    HorizontalAlignment="Left"
-                    FontWeight="Medium"
-                    FontSize="16"
-                    Margin="5,5,0,5"
-                    Command="{Binding ScanCommand}"/>
-
-            <!--DELETE LATER-->
-            <Button Content="Test OUI"
-                    Width="120"
-                    Height="35"
-                    HorizontalAlignment="Left"
-                    FontWeight="Medium"
-                    FontSize="16"
-                    Margin="5,5,0,5"
-                    Command="{Binding TestOUI}" />
-
-            <StackPanel Grid.Row="0" Margin="10">
-
-                <ProgressBar
-                    Height="20"
-                    Minimum="0"
-                    Maximum="100"
-                    Value="{Binding ScanProgressPercent, Mode=OneWay}"/>
-
-                <TextBlock
-                    Text="{Binding ScanProgressPercent, StringFormat=Scanning... {0}%, Mode=OneWay}"
-                    HorizontalAlignment="Center"
-                    Margin="0,5,0,0"/>
-
-            </StackPanel>
+            <Button Content="Przejdź do skanowania Bluetooth"
+                Width="200" Height="50"
+                HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10"
+                Command="{Binding NavigateToBluetoothScanningCommand}"/>
 
         </StackPanel>
 
-        <!-- DataGrid to show results -->
-        <DataGrid Grid.Row="1"
-                  ItemsSource="{Binding Devices}"
-                  AutoGenerateColumns="False"
-                  IsReadOnly="True"
-                  Margin="0,10,0,0">
-
-            <DataGrid.Columns>
-
-                <DataGridTextColumn Header="IP"
-                                    Binding="{Binding IPAddress}"
-                                    Width="*"/>
-
-                <DataGridTextColumn Header="Alive"
-                                    Binding="{Binding IsActiveDisplay}"
-                                    Width="70"/>
-
-                <DataGridTextColumn Header=" MAC "
-                                    Binding="{Binding MACAddress}"
-                                    Width="*"/>
-
-                <DataGridTextColumn Header="Vendor"
-                                    Binding="{Binding VendorDisplay}"
-                                    Width="*"/>
-
-                <DataGridTextColumn Header="Hostname"
-                                    Binding="{Binding HostName}"
-                                    Width="*"/>
-
-                <DataGridTextColumn Header="Open Ports"
-                                    Binding="{Binding OpenPortsDisplay}"
-                                    Width="*"/>
-
-                <DataGridTextColumn Header="Banner"
-                                    Binding="{Binding Banner}"
-                                    Width="2*"/>
-
-            </DataGrid.Columns>
-
-        </DataGrid>
     </Grid>
 </UserControl>

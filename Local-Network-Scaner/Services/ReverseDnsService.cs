@@ -10,7 +10,7 @@ namespace Local_Network_Scanner.Services
 {
     public class ReverseDnsService
     {
-        public async Task<string?> TryGetHostname(string ipAddress, int timeoutMs = 500)
+        public async Task<string?> TryGetHostname(string ipAddress, int timeoutMs)
         {
             try
             {
