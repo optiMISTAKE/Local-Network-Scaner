@@ -132,21 +132,46 @@ namespace Local_Network_Scanner.Services
             cancellationToken.ThrowIfCancellationRequested();
             int timeout = profile.TcpPortTimeout;
             using var sem = new SemaphoreSlim(profile.TcpPortConcurrency);
+            using var hostCts = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
+            int failedPortsCount = 0;
+            const int MAX_FAILED_PORTS = 15;
             var tasks = new List<Task>();
 
             foreach (var port in _tcpConnectService.CommonPorts)
             {
-                await sem.WaitAsync(cancellationToken);
+                if (hostCts.Token.IsCancellationRequested) break;
+                await sem.WaitAsync(hostCts.Token);
                 tasks.Add(Task.Run(async () =>
                 {
                     try
                     {
-                        var result = await _tcpConnectService.ProbeTcpPort(ipAddress, port, timeout, cancellationToken);
+                        hostCts.Token.ThrowIfCancellationRequested();
+                        var result = await _tcpConnectService.ProbeTcpPort(ipAddress, port, timeout, hostCts.Token);
                         
-                        if (result.IsOpen)
+                        if (result.Status == ScanStatus.Open)
                         {
                             lock (device.OpenPorts)
                                 device.OpenPorts.Add(port);
+
+                            Interlocked.Exchange(ref failedPortsCount, 0);
+                        }
+                        else if (result.Status == ScanStatus.Closed)
+                        {
+                            // The host actively refused connection. This counts as a successful packet exchange!
+                            // The host is alive, just the port is closed.
+                            // Reset the counter, because we are NOT experiencing packet loss.
+                            Interlocked.Exchange(ref failedPortsCount, 0);
+                        }
+                        else // ScanStatus.Timeout
+                        {
+                            // Only count consecutive TIMEOUTS as "packet loss"
+                            int currentFailures = Interlocked.Increment(ref failedPortsCount);
+
+                            if (currentFailures >= MAX_FAILED_PORTS)
+                            {
+                                hostCts.Cancel(); // Stop scanning THIS host
+                                Debug.WriteLine($"Aborted {ipAddress}: Too many consecutive timeouts.");
+                            }
                         }
 
                         if (DEV_TEST_BANNERS && device.OpenPorts.Count > 0)
@@ -163,15 +188,18 @@ namespace Local_Network_Scanner.Services
 
                         return result;
                     }
+                    catch (OperationCanceledException)
+                    {
+                        return null;
+                    }
                     finally
                     {
                         sem.Release();
                     }
-                }, cancellationToken));
+                }, hostCts.Token));
             }
 
             // 5. TCP Active Banner Grab (for open ports only)
-            // ... (TO-DO)
             cancellationToken.ThrowIfCancellationRequested();
 
             using var semBanner = new SemaphoreSlim(profile.BannerGrabConcurrency);

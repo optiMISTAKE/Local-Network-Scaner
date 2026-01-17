@@ -7,6 +7,12 @@ using System.Net.Sockets;
 
 namespace Local_Network_Scanner.Services
 {
+    public enum ScanStatus
+    {
+        Open,
+        Closed, // Connection Refused (RST)
+        Timeout // No response (Packet Loss)
+    }
     public class TcpConnectActiveService
     {
         public readonly int[] CommonPorts = new[]
@@ -31,7 +37,7 @@ namespace Local_Network_Scanner.Services
             8080  // HTTP-alt / common proxy
         };
 
-        public record ScanResult(int Port, bool IsOpen, string Message);
+        public record ScanResult(int Port, ScanStatus Status, string Message);
 
         public async Task<ScanResult> ProbeTcpPort(string ipAddress, int port, int timeout, CancellationToken cancellationToken)
         {
@@ -48,28 +54,34 @@ namespace Local_Network_Scanner.Services
                 {
                     await connectTask; // Ensure any exceptions are observed
                     // At this point, the connection was successful
+
                     try
                     {
                         tcpClient.Close();
                     }
                     catch { }
-                    return new ScanResult(port, true, "TCP connect succeeded. Port is open");
+                    return new ScanResult(port, ScanStatus.Open, "Open");
                 }
                 catch (SocketException sockEx)
                 {
-                    // Connection attempt failed with a socket error
-                    return new ScanResult(port, false, $"TCP connect failed, socket exception: {sockEx.Message}");
+                    // Connection attempt failed with a socket error (SocketErrorCode 10061 is "Connection Refused")
+                    if (sockEx.SocketErrorCode == SocketError.ConnectionRefused)
+                    {
+                        return new ScanResult(port, ScanStatus.Closed, "Refused");
+                    }
+                    // Other errors might be network unreachable, etc. Treat as Timeout/Error
+                    return new ScanResult(port, ScanStatus.Timeout, $"Error: {sockEx.Message}");
                 }
                 catch (Exception ex)
                 {
                     // Connection attempt failed
-                    return new ScanResult(port, false, $"TCP connect failed: {ex.Message}");
+                    return new ScanResult(port, ScanStatus.Timeout, $"Error: {ex.Message}");
                 }
             }
             else // Timeout occurred
             {
                 try { tcpClient.Close(); } catch { }
-                return new ScanResult(port, false, "TCP connect timed out");
+                return new ScanResult(port, ScanStatus.Timeout, "Timed out");
             }
         }
     }
