@@ -176,14 +176,17 @@ namespace Local_Network_Scanner.Services
 
                         if (DEV_TEST_BANNERS && device.OpenPorts.Count > 0)
                         {
+                            string fakePrefix = System.Windows.Application.Current.Resources["Banner_FakePrefix"] as string
+                        ?? "[Fake banner]";
+
                             device.PortBanners[22] =
-                                "SSH-2.0-OpenSSH_9.3p1 Debian-1+deb12u1 Protocol mismatch detected. " +
-                                "This is a simulated banner used for UI testing and text wrapping validation.";
+                                $"{fakePrefix} " +
+                                "SSH-2.0-OpenSSH_9.3p1 Debian-1+deb12u1 Protocol mismatch detected. ";
 
                             device.PortBanners[80] =
+                                $"{fakePrefix} " +
                                 "HTTP/1.1 200 OK Server: nginx/1.24.0 (Ubuntu) " +
-                                "Content-Type: text/html; charset=UTF-8 Connection: keep-alive " +
-                                "This banner is intentionally very long to exceed 120 characters.";
+                                "Content-Type: text/html; charset=UTF-8 Connection: keep-alive ";
                         }
 
                         return result;

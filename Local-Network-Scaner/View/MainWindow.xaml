@@ -60,7 +60,7 @@
                                Stretch="Uniform"
                                Margin="0,0,10,0"
                                VerticalAlignment="Center"/>
-                        <TextBlock Text="Local Network Scanner"
+                        <TextBlock Text="{DynamicResource App_Title}"
                                    Foreground="White"
                                    FontSize="{DynamicResource BaseFontSize}"
                                    FontWeight="SemiBold"

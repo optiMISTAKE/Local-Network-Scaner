@@ -2,10 +2,60 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib">
 
+    <sys:String x:Key="App_Title">Skaner Sieci Lokalnej</sys:String>
+    <sys:String x:Key="App_Subtitle">Odkrywaj i analizuj swoją sieć</sys:String>
+
     <sys:String x:Key="Menu_Title">Skaner Sieci Lokalnej</sys:String>
+    <sys:String x:Key="Menu_Authors">Autorzy: X, Y, Z</sys:String>
     <sys:String x:Key="Menu_MainScan">Przejdź do głównego skanera</sys:String>
+    <sys:String x:Key="Menu_MainScanDesc">Skanuj sieć lokalną w poszukiwaniu urządzeń</sys:String>
     <sys:String x:Key="Menu_Bluetooth">Przejdź do skanowania Bluetooth</sys:String>
-    <sys:String x:Key="Menu_ToggleFont">Przełącz czcionkę (Dyslexic)</sys:String>
+    <sys:String x:Key="Menu_BluetoothDesc">Wykrywaj pobliskie urządzenia Bluetooth</sys:String>
+    <sys:String x:Key="Menu_ToggleFont">Czcionka dla dyslektyków</sys:String>
     <sys:String x:Key="Menu_LanguageLabel">Zmień język:</sys:String>
+
+    <sys:String x:Key="Common_Back">← Powrót do menu</sys:String>
+    <sys:String x:Key="Common_StartScan">Rozpocznij Skan</sys:String>
+    <sys:String x:Key="Common_StopScan">Zatrzymaj Skan</sys:String>
+    <sys:String x:Key="Common_Status">Status</sys:String>
+    <sys:String x:Key="Common_Ready">Gotowy</sys:String>
+    <sys:String x:Key="Common_Scanning">Skanowanie...</sys:String>
+    <sys:String x:Key="Common_ScanSpeed">Preset skanowania:</sys:String>
+    <sys:String x:Key="Common_MainMenu">Menu Główne</sys:String>
+
+    <sys:String x:Key="Bt_Title">Skaner Bluetooth</sys:String>
+    <sys:String x:Key="Bt_Start">Rozpocznij skanowanie</sys:String>
+    <sys:String x:Key="Bt_Stop">Zatrzymaj skanowanie</sys:String>
+    <sys:String x:Key="Bt_Discovered">Wykryte Urządzenia</sys:String>
+
+    <sys:String x:Key="Bt_Col_Name">Nazwa Urządzenia</sys:String>
+    <sys:String x:Key="Bt_Col_Mac">Adres MAC</sys:String>
+    <sys:String x:Key="Bt_Col_Signal">Sygnał (RSSI)</sys:String>
+    <sys:String x:Key="Bt_Col_Services">Usługi</sys:String>
+
+    <sys:String x:Key="Net_Title">Skaner Sieciowy</sys:String>
+    <sys:String x:Key="Net_Interface">Interfejs Sieciowy:</sys:String>
+    <sys:String x:Key="Net_Btn_Bluetooth">Skaner Bluetooth</sys:String>
+
+    <sys:String x:Key="Net_Col_IP">Adres IP</sys:String>
+    <sys:String x:Key="Net_Col_Status">Status</sys:String>
+    <sys:String x:Key="Net_Col_Mac">Adres MAC</sys:String>
+    <sys:String x:Key="Net_Col_Vendor">Producent</sys:String>
+    <sys:String x:Key="Net_Col_Hostname">Nazwa Hosta</sys:String>
+    <sys:String x:Key="Net_Col_Ports">Otwarte Porty</sys:String>
+    <sys:String x:Key="Net_Col_Banner">Informacje o banerze</sys:String>
+
+    <sys:String x:Key="Alert_BtDisabled_Title">Bluetooth jest wyłączony</sys:String>
+    <sys:String x:Key="Alert_BtDisabled_Msg">Bluetooth jest obecnie wyłączony.&#x0a;&#x0a;Aby skanować, musisz włączyć moduł Bluetooth.&#x0a;&#x0a;Czy chcesz otworzyć ustawienia teraz?</sys:String>
+    <sys:String x:Key="Banner_FakePrefix">[Fałszywy baner, tylko do testów]</sys:String>
+
+    <sys:String x:Key="Speed_Slow">Wolny</sys:String>
+    <sys:String x:Key="Speed_Normal">Normalny</sys:String>
+    <sys:String x:Key="Speed_Aggressive">Agresywny</sys:String>
+
+    <sys:String x:Key="Device_Active">Aktywny</sys:String>
+    <sys:String x:Key="Device_Inactive">Nieaktywny</sys:String>
+    <sys:String x:Key="Device_PortsNone">Brak</sys:String>
+    <sys:String x:Key="Device_VendorUnknown">Nie znaleziono producenta w bazie OUI. Adres MAC jest prawdopodobnie losowy lub prywatny</sys:String>
 
 </ResourceDictionary>

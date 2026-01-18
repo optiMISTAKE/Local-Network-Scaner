@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Local_Network_Scanner.Model
 {
@@ -21,7 +22,7 @@ namespace Local_Network_Scanner.Model
             get
             {
                 if (OpenPorts == null || OpenPorts.Count == 0)
-                    return "None";
+                    return Application.Current.Resources["Device_PortsNone"] as string ?? "None";
                 return string.Join(", ", OpenPorts);
             }
         }
@@ -30,7 +31,10 @@ namespace Local_Network_Scanner.Model
         {
             get
             {
-                return IsActive ? "Active" : "Inactive";
+                if (IsActive)
+                    return Application.Current.Resources["Device_Active"] as string ?? "Active";
+                else
+                    return Application.Current.Resources["Device_Inactive"] as string ?? "Inactive";
             }
         }
 
@@ -38,7 +42,12 @@ namespace Local_Network_Scanner.Model
         {
             get
             {
-                return string.IsNullOrEmpty(Vendor) ? "OUI record not found in the database. The given MAC address is most probably random or private" : Vendor;
+                if (string.IsNullOrEmpty(Vendor))
+                {
+                    return Application.Current.Resources["Device_VendorUnknown"] as string
+                           ?? "OUI record not found...";
+                }
+                return Vendor;
             }
         }
 

@@ -8,6 +8,7 @@
              d:DesignHeight="720" d:DesignWidth="1280">
 
     <UserControl.Resources>
+        <cvrt:ScanSpeedConverter x:Key="ScanSpeedConverter"/>
         <cvrt:InverseBoolConverter x:Key="InverseBoolConverter"/>
 
         <!-- Bluetooth Device Card Style -->
@@ -141,7 +142,7 @@
                            VerticalAlignment="Center"/>
                 </Border>
 
-                <TextBlock Text="Bluetooth Scanner"
+                <TextBlock Text="{DynamicResource Bt_Title}"
                            HorizontalAlignment="Center"
                            FontSize="{DynamicResource LargeFontSize}"
                            FontWeight="Bold"
@@ -151,7 +152,7 @@
                            Margin="0,0,0,30"/>
 
                 <!-- Scan Speed Selection -->
-                <TextBlock Text="Scan Speed"
+                <TextBlock Text="{DynamicResource Common_ScanSpeed}"
                            FontSize="{DynamicResource BaseFontSize}"
                            FontWeight="SemiBold"
                            Foreground="{StaticResource Text800}"
@@ -160,10 +161,16 @@
                 <ComboBox ItemsSource="{Binding ScanSpeedPresets}"
                           SelectedItem="{Binding SelectedScanSpeedPreset, Mode=TwoWay}"
                           Height="40"
-                          Margin="0,0,0,20"/>
+                          Margin="0,0,0,20">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Converter={StaticResource ScanSpeedConverter}}"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
 
                 <!-- Start Scan Button -->
-                <Button Content="Start Bluetooth Scan"
+                <Button Content="{DynamicResource Bt_Start}"
                         Height="45"
                         Margin="0,0,0,10"
                         FontSize="{DynamicResource BaseFontSize}"
@@ -184,7 +191,7 @@
                 </Button>
 
                 <!-- Stop Scan Button -->
-                <Button Content="Stop Bluetooth Scan"
+                <Button Content="{DynamicResource Bt_Stop}"
                         Height="45"
                         Margin="0,0,0,20"
                         FontSize="{DynamicResource BaseFontSize}"
@@ -193,9 +200,9 @@
                         Style="{StaticResource SecondaryButton}"/>
 
                 <!-- Back Button -->
-                <Button Content="← Back to Main Menu"
+                <Button Content="{DynamicResource Common_MainMenu}"
                         Height="45"
-                        FontSize="{DynamicResource SmallFontSize}"
+                        FontSize="{DynamicResource BaseFontSize}"
                         Command="{Binding NavigateToMainMenuCommand}"
                         Style="{StaticResource SecondaryButton}"/>
 
@@ -205,7 +212,7 @@
                         CornerRadius="8"
                         Padding="12">
                     <StackPanel>
-                        <TextBlock Text="Status"
+                        <TextBlock Text="{DynamicResource Common_Status}"
                                    FontSize="{DynamicResource MediumFontSize}"
                                    FontWeight="SemiBold"
                                    Foreground="{StaticResource Text800}"
@@ -229,12 +236,12 @@
                                        Foreground="{StaticResource Text800}">
                                 <TextBlock.Style>
                                     <Style TargetType="TextBlock">
-                                        <Setter Property="Text" Value="Ready"/>
+                                        <Setter Property="Text" Value="{DynamicResource Common_Ready}"/>
                                         <Setter Property="FontFamily" Value="{DynamicResource MainFont}"/>
                                         <Setter Property="FontSize" Value="{DynamicResource BaseFontSize}"/>
                                         <Style.Triggers>
                                             <DataTrigger Binding="{Binding IsScanningForUI}" Value="True">
-                                                <Setter Property="Text" Value="Scanning..."/>
+                                                <Setter Property="Text" Value="{DynamicResource Common_Scanning}"/>
                                                 <Setter Property="FontWeight" Value="SemiBold"/>
                                             </DataTrigger>
                                         </Style.Triggers>
@@ -269,7 +276,7 @@
                         BorderThickness="0,0,0,2"
                         BorderBrush="{StaticResource Primary500}">
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Discovered Devices"
+                        <TextBlock Text="{DynamicResource Bt_Discovered}"
                                    FontSize="{DynamicResource MediumFontSize}"
                                    FontWeight="SemiBold"
                                    Foreground="{StaticResource DeepTwilight}"
@@ -298,7 +305,7 @@
                     </ListView.Resources>
                     <ListView.View>
                         <GridView ColumnHeaderContainerStyle="{StaticResource GridViewColumnHeaderStyle}">
-                            <GridViewColumn Header="Device Name"
+                            <GridViewColumn Header="{DynamicResource Bt_Col_Name}"
                                             Width="140">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
@@ -313,7 +320,7 @@
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
 
-                            <GridViewColumn Header="MAC Address" 
+                            <GridViewColumn Header="{DynamicResource Bt_Col_Mac}" 
                                             Width="150">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
@@ -327,7 +334,7 @@
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
 
-                            <GridViewColumn Header="Signal (RSSI)" 
+                            <GridViewColumn Header="{DynamicResource Bt_Col_Signal}" 
                                             Width="135">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
@@ -357,7 +364,7 @@
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
 
-                            <GridViewColumn Header="Services" 
+                            <GridViewColumn Header="{DynamicResource Bt_Col_Services}" 
                                             Width="600">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>

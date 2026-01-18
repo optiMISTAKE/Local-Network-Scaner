@@ -2,10 +2,60 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib">
 
+    <sys:String x:Key="App_Title">Сканер локальної мережі</sys:String>
+    <sys:String x:Key="App_Subtitle">Досліджуйте та аналізуйте свою мережу</sys:String>
+
     <sys:String x:Key="Menu_Title">Сканер локальної мережі</sys:String>
+    <sys:String x:Key="Menu_Authors">Автори: X, Y, Z</sys:String>
     <sys:String x:Key="Menu_MainScan">Перейти до сканера</sys:String>
+    <sys:String x:Key="Menu_MainScanDesc">Сканування мережі на наявність пристроїв і служб</sys:String>
     <sys:String x:Key="Menu_Bluetooth">Сканування Bluetooth</sys:String>
+    <sys:String x:Key="Menu_BluetoothDesc">Пошук пристроїв Bluetooth поблизу</sys:String>
     <sys:String x:Key="Menu_ToggleFont">Шрифт для дислексії</sys:String>
     <sys:String x:Key="Menu_LanguageLabel">Змінити мову:</sys:String>
+
+    <sys:String x:Key="Common_Back">← Назад до меню</sys:String>
+    <sys:String x:Key="Common_StartScan">Почати Скан</sys:String>
+    <sys:String x:Key="Common_StopScan">Зупинити Скан</sys:String>
+    <sys:String x:Key="Common_Status">Статус</sys:String>
+    <sys:String x:Key="Common_Ready">Готовий</sys:String>
+    <sys:String x:Key="Common_Scanning">Сканування...</sys:String>
+    <sys:String x:Key="Common_ScanSpeed">Параметри сканування:</sys:String>
+    <sys:String x:Key="Common_MainMenu">Головне Меню</sys:String>
+
+    <sys:String x:Key="Bt_Title">Сканер Bluetooth</sys:String>
+    <sys:String x:Key="Bt_Start">Почати скан Bluetooth</sys:String>
+    <sys:String x:Key="Bt_Stop">Зупинити скан</sys:String>
+    <sys:String x:Key="Bt_Discovered">Знайдені Пристрої</sys:String>
+
+    <sys:String x:Key="Bt_Col_Name">Назва Пристрою</sys:String>
+    <sys:String x:Key="Bt_Col_Mac">MAC Адреса</sys:String>
+    <sys:String x:Key="Bt_Col_Signal">Сигнал (RSSI)</sys:String>
+    <sys:String x:Key="Bt_Col_Services">Сервіси</sys:String>
+
+    <sys:String x:Key="Net_Title">Мережевий Сканер</sys:String>
+    <sys:String x:Key="Net_Interface">Мережевий інтерфейс:</sys:String>
+    <sys:String x:Key="Net_Btn_Bluetooth">Сканер Bluetooth</sys:String>
+
+    <sys:String x:Key="Net_Col_IP">IP Адреса</sys:String>
+    <sys:String x:Key="Net_Col_Status">Статус</sys:String>
+    <sys:String x:Key="Net_Col_Mac">MAC Адреса</sys:String>
+    <sys:String x:Key="Net_Col_Vendor">Виробник</sys:String>
+    <sys:String x:Key="Net_Col_Hostname">Назва Хоста</sys:String>
+    <sys:String x:Key="Net_Col_Ports">Відкриті Порти</sys:String>
+    <sys:String x:Key="Net_Col_Banner">Інформація банеру</sys:String>
+
+    <sys:String x:Key="Alert_BtDisabled_Title">Bluetooth вимкнено</sys:String>
+    <sys:String x:Key="Alert_BtDisabled_Msg">Bluetooth зараз вимкнено.&#x0a;&#x0a;Для сканування необхідно увімкнути Bluetooth.&#x0a;&#x0a;Відкрити налаштування?</sys:String>
+    <sys:String x:Key="Banner_FakePrefix">[Фальшивий банер, для тесту]</sys:String>
+
+    <sys:String x:Key="Speed_Slow">Повільне</sys:String>
+    <sys:String x:Key="Speed_Normal">Звичайне</sys:String>
+    <sys:String x:Key="Speed_Aggressive">Агресивне</sys:String>
+
+    <sys:String x:Key="Device_Active">Активний</sys:String>
+    <sys:String x:Key="Device_Inactive">Неактивний</sys:String>
+    <sys:String x:Key="Device_PortsNone">Немає</sys:String>
+    <sys:String x:Key="Device_VendorUnknown">Виробника не знайдено в базі OUI. MAC-адреса ймовірно випадкова або приватна</sys:String>
 
 </ResourceDictionary>

@@ -73,10 +73,10 @@
         </Grid.RowDefinitions>
 
         <!-- Header -->
-        <StackPanel Grid.Row="0" Margin="0,30,0,20">
+        <StackPanel Grid.Row="0" Margin="0,20,0,10">
             <!-- App Icon/Logo -->
             <Ellipse Width="80" Height="80"
-                     Margin="0,0,0,20"
+                     Margin="0,0,0,10"
                      HorizontalAlignment="Center">
                 <Ellipse.Fill>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
@@ -94,13 +94,24 @@
                        FontSize="{DynamicResource HugeFontSize}"
                        FontWeight="Bold"
                        Foreground="{StaticResource DeepTwilight}"
-                       Margin="0,0,0,10">
+                       Margin="0,0,0,5">
                 <TextBlock.Effect>
                     <DropShadowEffect Color="#90e0ef" BlurRadius="8" ShadowDepth="0" Opacity="0.4"/>
                 </TextBlock.Effect>
             </TextBlock>
 
-            <TextBlock Text="Discover and analyze your network"
+            <TextBlock Text="{DynamicResource Menu_Authors}" 
+           HorizontalAlignment="Center"
+           FontSize="{DynamicResource LargeFontSize}"
+           FontWeight="Bold"
+           Foreground="{StaticResource DeepTwilight}"
+           Margin="0,0,0,10">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#90e0ef" BlurRadius="8" ShadowDepth="0" Opacity="0.4"/>
+                </TextBlock.Effect>
+            </TextBlock>
+
+            <TextBlock Text="{DynamicResource App_Subtitle}"
                        HorizontalAlignment="Center"
                        FontSize="{DynamicResource MediumFontSize}"
                        Foreground="{StaticResource FrenchBlue}"
@@ -148,7 +159,7 @@
                                HorizontalAlignment="Center"
                                Margin="0,0,0,10"/>
 
-                    <TextBlock Text="Scan local network for devices and services"
+                    <TextBlock Text="{DynamicResource Menu_MainScanDesc}"
                                FontSize="{DynamicResource BaseFontSize}"
                                Foreground="{StaticResource Text800}"
                                Opacity="0.7"
@@ -191,7 +202,7 @@
                                HorizontalAlignment="Center"
                                Margin="0,0,0,10"/>
 
-                    <TextBlock Text="Discover nearby Bluetooth devices"
+                    <TextBlock Text="{DynamicResource Menu_BluetoothDesc}"
                                FontSize="{DynamicResource BaseFontSize}"
                                Foreground="{StaticResource Text800}"
                                Opacity="0.7"

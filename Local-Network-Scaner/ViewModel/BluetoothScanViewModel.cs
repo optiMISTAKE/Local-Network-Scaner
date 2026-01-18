@@ -81,12 +81,12 @@ namespace Local_Network_Scanner.ViewModel
             bool isBluetoothEnabled = await _bluetoothScanService.IsBluetoothEnabledAsync();
             if (!isBluetoothEnabled)
             {
-                bool openSettings = _dialogService.ShowConfirmation(
-                    "Bluetooth is disabled",
-                    "Bluetooth is currently turned off.\n\n" +
-                    "To scan for Bluetooth devices, Bluetooth must be enabled.\n\n" +
-                    "Do you want to open Bluetooth settings now?"
-                );
+                string title = System.Windows.Application.Current.Resources["Alert_BtDisabled_Title"] as string
+                       ?? "Bluetooth Disabled";
+                string message = System.Windows.Application.Current.Resources["Alert_BtDisabled_Msg"] as string
+                                 ?? "Please enable Bluetooth.";
+
+                bool openSettings = _dialogService.ShowConfirmation(title, message);
 
                 if (openSettings)
                 {

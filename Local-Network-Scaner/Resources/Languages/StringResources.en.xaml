@@ -2,10 +2,60 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib">
 
+    <sys:String x:Key="App_Title">Local Network Scanner</sys:String>
+    <sys:String x:Key="App_Subtitle">Reveal and analyze your network</sys:String>
+
     <sys:String x:Key="Menu_Title">Local Network Scanner</sys:String>
+    <sys:String x:Key="Menu_Authors">By: X, Y, Z</sys:String>
     <sys:String x:Key="Menu_MainScan">Go to Main Scanner</sys:String>
+    <sys:String x:Key="Menu_MainScanDesc">Scan local network for devices and services</sys:String>
     <sys:String x:Key="Menu_Bluetooth">Go to Bluetooth Scanning</sys:String>
+    <sys:String x:Key="Menu_BluetoothDesc">Discover nearby Bluetooth devices</sys:String>
     <sys:String x:Key="Menu_ToggleFont">Toggle Dyslexic Font</sys:String>
     <sys:String x:Key="Menu_LanguageLabel">Change Language:</sys:String>
+
+    <sys:String x:Key="Common_Back">← Back to Main Menu</sys:String>
+    <sys:String x:Key="Common_StartScan">Start Scan</sys:String>
+    <sys:String x:Key="Common_StopScan">Stop Scan</sys:String>
+    <sys:String x:Key="Common_Status">Status</sys:String>
+    <sys:String x:Key="Common_Ready">Ready</sys:String>
+    <sys:String x:Key="Common_Scanning">Scanning...</sys:String>
+    <sys:String x:Key="Common_ScanSpeed">Scan Preset:</sys:String>
+    <sys:String x:Key="Common_MainMenu">Main Menu</sys:String>
+
+    <sys:String x:Key="Bt_Title">Bluetooth Scanner</sys:String>
+    <sys:String x:Key="Bt_Start">Start Bluetooth Scan</sys:String>
+    <sys:String x:Key="Bt_Stop">Stop Bluetooth Scan</sys:String>
+    <sys:String x:Key="Bt_Discovered">Discovered Devices</sys:String>
+
+    <sys:String x:Key="Bt_Col_Name">Device Name</sys:String>
+    <sys:String x:Key="Bt_Col_Mac">MAC Address</sys:String>
+    <sys:String x:Key="Bt_Col_Signal">Signal (RSSI)</sys:String>
+    <sys:String x:Key="Bt_Col_Services">Services</sys:String>
+
+    <sys:String x:Key="Net_Title">Network Scanner</sys:String>
+    <sys:String x:Key="Net_Interface">Network Interface:</sys:String>
+    <sys:String x:Key="Net_Btn_Bluetooth">Bluetooth Scan</sys:String>
+
+    <sys:String x:Key="Net_Col_IP">IP Address</sys:String>
+    <sys:String x:Key="Net_Col_Status">Status</sys:String>
+    <sys:String x:Key="Net_Col_Mac">MAC Address</sys:String>
+    <sys:String x:Key="Net_Col_Vendor">Vendor</sys:String>
+    <sys:String x:Key="Net_Col_Hostname">Hostname</sys:String>
+    <sys:String x:Key="Net_Col_Ports">Open Ports</sys:String>
+    <sys:String x:Key="Net_Col_Banner">Banner Information</sys:String>
+
+    <sys:String x:Key="Alert_BtDisabled_Title">Bluetooth is disabled</sys:String>
+    <sys:String x:Key="Alert_BtDisabled_Msg">Bluetooth is currently turned off.&#x0a;&#x0a;To scan for Bluetooth devices, Bluetooth must be enabled.&#x0a;&#x0a;Do you want to open Bluetooth settings now?</sys:String>
+    <sys:String x:Key="Banner_FakePrefix">[Fake banner, for testing purposes only]</sys:String>
+
+    <sys:String x:Key="Speed_Slow">Slow</sys:String>
+    <sys:String x:Key="Speed_Normal">Normal</sys:String>
+    <sys:String x:Key="Speed_Aggressive">Aggressive</sys:String>
+
+    <sys:String x:Key="Device_Active">Active</sys:String>
+    <sys:String x:Key="Device_Inactive">Inactive</sys:String>
+    <sys:String x:Key="Device_PortsNone">None</sys:String>
+    <sys:String x:Key="Device_VendorUnknown">OUI record not found in the database. The given MAC address is most probably random or private</sys:String>
 
 </ResourceDictionary>

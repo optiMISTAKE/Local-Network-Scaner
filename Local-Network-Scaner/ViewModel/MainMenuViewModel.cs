@@ -29,12 +29,12 @@ namespace Local_Network_Scanner.ViewModel
         private const double NORMAL_HUGE_SIZE = 42.0;
 
         // Font size adjustments for dyslexic mode (scaled down ~15%)
-        private const double DYSLEXIC_BASE_SIZE = 10.0;
+        private const double DYSLEXIC_BASE_SIZE = 11.0;
         private const double DYSLEXIC_SMALL_SIZE = 10.0;
         private const double DYSLEXIC_MEDIUM_SIZE = 14.0;
         private const double DYSLEXIC_LARGE_SIZE = 17.0;
         private const double DYSLEXIC_EXTRA_LARGE_SIZE = 24.0;
-        private const double DYSLEXIC_HUGE_SIZE = 36.0;
+        private const double DYSLEXIC_HUGE_SIZE = 34.0;
 
         // PUBLIC PROPERTIES, AVAILABLE FOR DATA BINDING
 

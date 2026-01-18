@@ -8,6 +8,7 @@
              d:DesignHeight="720" d:DesignWidth="1280">
 
     <UserControl.Resources>
+        <cvrt:ScanSpeedConverter x:Key="ScanSpeedConverter"/>
         <cvrt:BoolConverter x:Key="BoolConverter"/>
 
         <!-- Modern DataGrid Style -->
@@ -103,7 +104,7 @@
 
             <StackPanel>
                 <!-- Title -->
-                <TextBlock Text="Network Scanner" 
+                <TextBlock Text="{DynamicResource Net_Title}" 
                            FontSize="{DynamicResource ExtraLargeFontSize}"
                            FontWeight="Bold"
                            Foreground="{StaticResource DeepTwilight}"
@@ -117,7 +118,7 @@
                     </Grid.ColumnDefinitions>
 
                     <TextBlock Grid.Column="0"
-                               Text="Network Interface:"
+                               Text="{DynamicResource Net_Interface}"
                                FontSize="{DynamicResource MediumFontSize}"
                                FontWeight="SemiBold"
                                Foreground="{StaticResource Text800}"
@@ -145,7 +146,7 @@
                     <StackPanel Grid.Column="0" 
                                 Orientation="Horizontal"
                                 Margin="0,0,20,0">
-                        <TextBlock Text="Scan Speed:"
+                        <TextBlock Text="{DynamicResource Common_ScanSpeed}"
                                    FontSize="{DynamicResource BaseFontSize}"
                                    FontWeight="SemiBold"
                                    Foreground="{StaticResource Text800}"
@@ -154,36 +155,42 @@
 
                         <ComboBox ItemsSource="{Binding ScanSpeedPresets}"
                                   SelectedItem="{Binding SelectedScanSpeedPreset, Mode=TwoWay}"
-                                  Width="145"
-                                  Height="40"/>
+                                  Width="145" 
+                                  Height="40">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Converter={StaticResource ScanSpeedConverter}}"/>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
                     </StackPanel>
 
                     <!-- Action Buttons -->
                     <StackPanel Grid.Column="1" 
                                 Orientation="Horizontal">
-                        <Button Content="Start Scan"
-                                Width="140"
+                        <Button Content="{DynamicResource Common_StartScan}"
+                                Width="180"
                                 Height="40"
                                 Margin="0,0,10,0"
                                 Command="{Binding ScanCommand}"/>
 
-                        <Button Content="Stop Scan"
-                                Width="140"
+                        <Button Content="{DynamicResource Common_StopScan}"
+                                Width="180"
                                 Height="40"
                                 Margin="0,0,10,0"
                                 Command="{Binding StopScanCommand}"
                                 IsEnabled="{Binding IsScanningForUI, Converter={StaticResource BoolConverter}}"
                                 Style="{StaticResource SecondaryButton}"/>
 
-                        <Button Content="Bluetooth Scan"
-                                Width="140"
+                        <Button Content="{DynamicResource Net_Btn_Bluetooth}"
+                                Width="180"
                                 Height="40"
                                 Margin="0,0,10,0"
                                 Command="{Binding NavigateToBluetoothScanningCommand}"
                                 Style="{StaticResource SecondaryButton}"/>
 
-                        <Button Content="Main Menu"
-                                Width="140"
+                        <Button Content="{DynamicResource Common_MainMenu}"
+                                Width="180"
                                 Height="40"
                                 Command="{Binding NavigateToMainMenuCommand}"
                                 Style="{StaticResource SecondaryButton}"/>
@@ -229,11 +236,14 @@
                             </ProgressBar.Style>
                         </ProgressBar>
 
-                        <TextBlock Text="{Binding ScanProgressPercent, StringFormat=Scanning... {0}%, Mode=OneWay}"
-                                   HorizontalAlignment="Center"
+                        <TextBlock HorizontalAlignment="Center"
                                    FontWeight="SemiBold"
                                    Foreground="{StaticResource Text800}"
-                                   Margin="0,8,0,0"/>
+                                   Margin="0,8,0,0">
+                                    <Run Text="{DynamicResource Common_Scanning}"/>
+                                    <Run Text="{Binding ScanProgressPercent, Mode=OneWay}"/>
+                                    <Run Text="%"/>
+                        </TextBlock>
                     </StackPanel>
                 </Border>
             </StackPanel>
@@ -254,32 +264,32 @@
                       CellStyle="{StaticResource DataGridCell}"
                       Margin="0">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="IP Address"
+                    <DataGridTextColumn Header="{DynamicResource Net_Col_IP}"
                                         Binding="{Binding IPAddress}"
                                         Width="125"/>
 
-                    <DataGridTextColumn Header="Status"
+                    <DataGridTextColumn Header="{DynamicResource Net_Col_Status}"
                                         Binding="{Binding IsActiveDisplay}"
-                                        Width="85"/>
+                                        Width="100"/>
 
-                    <DataGridTextColumn Header="MAC Address"
+                    <DataGridTextColumn Header="{DynamicResource Net_Col_Mac}"
                                         Binding="{Binding MACAddress}"
                                         Width="165"/>
 
-                    <DataGridTextColumn Header="Vendor"
+                    <DataGridTextColumn Header="{DynamicResource Net_Col_Vendor}"
                                         Binding="{Binding VendorDisplay}"
                                         Width="180"
                                         ElementStyle="{StaticResource WrapTextStyle}"/>
 
-                    <DataGridTextColumn Header="Hostname"
+                    <DataGridTextColumn Header="{DynamicResource Net_Col_Hostname}"
                                         Binding="{Binding HostName}"
                                         Width="160"/>
 
-                    <DataGridTextColumn Header="Open Ports"
+                    <DataGridTextColumn Header="{DynamicResource Net_Col_Ports}"
                                         Binding="{Binding OpenPortsDisplay}"
                                         Width="125"/>
 
-                    <DataGridTextColumn Header="Banner Information"
+                    <DataGridTextColumn Header="{DynamicResource Net_Col_Banner}"
                                         Binding="{Binding Banner}"
                                         Width="*"
                                         ElementStyle="{StaticResource WrapTextStyle}"/>
